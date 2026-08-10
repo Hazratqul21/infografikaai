@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.env
+__pycache__/
+*.pyc
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+.claude/

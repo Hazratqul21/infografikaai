@@ -1,0 +1,175 @@
+/* INNASLOT Admin Mini App — dizayn tizimi (Figma'dan aniq qiymatlar) */
+:root {
+  --bg: #f1ece0;          /* sahifa foni (krem) */
+  --card-lav: #e4ddf5;    /* KPI / lavender kartalar */
+  --card-white: #ffffff;  /* oq kartalar */
+  --primary: #5a3fe0;     /* asosiy binafsha (nav, chart, urg'u) */
+  --text: #0d0d0d;
+  --lime: #cfef3c;        /* yashil-lime badge */
+  --red: #e84040;
+  --green: #22b07d;
+  --amber: #f0a92c;
+
+  --r-lg: 24px;
+  --r-md: 16px;
+  --r-pill: 100px;
+
+  /* neumorfik soya (Figma inset + drop) */
+  --shadow-soft: 0px 8px 16px rgba(0,0,0,0.10);
+  --shadow-inset: inset -4px -4px 8px rgba(0,0,0,0.06), inset 4px 4px 8px rgba(255,255,255,0.8);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body, #root { margin: 0; padding: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ekran konteyneri — 380px mobil */
+.app-root {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100%;
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.screen { padding: 12px 20px 108px; display: flex; flex-direction: column; gap: 24px; }
+
+/* Sarlavha */
+.greeting-title { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 20px; }
+.greeting-sub { font-weight: 500; font-size: 14px; opacity: 0.5; margin-top: 4px; }
+
+/* Kartalar */
+.card {
+  background: var(--card-white);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-soft), var(--shadow-inset);
+}
+.card-lav { background: var(--card-lav); }
+
+/* KPI grid */
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kpi {
+  background: var(--card-lav);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-soft), var(--shadow-inset);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.kpi-num { font-family: "Archivo Black", Inter, sans-serif; font-weight: 800; font-size: 20px; }
+.kpi-label { font-weight: 500; font-size: 12px; opacity: 0.6; }
+.icon-muted { color: var(--text); opacity: 0.85; }
+
+/* Daromad kartasi */
+.revenue { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.revenue-num { font-family: "Archivo Black", Inter, sans-serif; font-weight: 800; font-size: 28px; display: flex; align-items: center; gap: 8px; }
+.revenue-sub { font-weight: 600; font-size: 13px; opacity: 0.5; margin-top: 4px; }
+.legend-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+/* Bar chart */
+.bars { display: flex; gap: 8px; height: 60px; align-items: flex-end; justify-content: center; }
+.bar { flex: 1; min-width: 0; background: var(--primary); border-radius: 4px; }
+
+/* Chiplar (tez amallar) */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card-white); border-radius: var(--r-pill);
+  padding: 10px 16px; font-weight: 700; font-size: 13px;
+  box-shadow: var(--shadow-soft), var(--shadow-inset);
+  border: none; color: var(--text); cursor: pointer;
+}
+.badge { border-radius: var(--r-pill); padding: 4px 8px; font-weight: 700; font-size: 10px; line-height: 1; }
+.badge-lime { background: var(--lime); color: var(--text); }
+.badge-red { background: var(--red); color: #fff; }
+
+/* Status satri */
+.status-bar-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card-lav); border-radius: var(--r-md);
+  padding: 12px 16px; font-weight: 600; font-size: 13px;
+  box-shadow: var(--shadow-soft), var(--shadow-inset);
+}
+
+/* Pastki navigatsiya */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px; background: var(--primary);
+  display: flex; flex-direction: column; z-index: 50;
+}
+.bottom-nav-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 24px; }
+.nav-item { display: flex; flex-direction: column; gap: 4px; align-items: center; width: 68px;
+  background: none; border: none; color: #fff; cursor: pointer; }
+.nav-item span { font-size: 10px; }
+.nav-item.inactive { opacity: 0.6; }
+.nav-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--lime); margin-top: -2px; }
+
+/* ─── Umumiy komponentlar (barcha ekranlar) ─── */
+.page-title { font-weight: 700; font-size: 20px; display: flex; align-items: center; gap: 8px; }
+.page-sub { font-weight: 500; font-size: 13px; opacity: 0.5; margin-top: 2px; }
+
+/* Ro'yxat elementi */
+.list { display: flex; flex-direction: column; gap: 10px; }
+.row {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  background: var(--card-white); border-radius: var(--r-md);
+  padding: 12px 14px; box-shadow: var(--shadow-soft), var(--shadow-inset);
+  border: none; text-align: left; cursor: pointer; color: var(--text);
+}
+.row-main { flex: 1; min-width: 0; }
+.row-title { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row-sub { font-size: 12px; opacity: 0.55; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row-trail { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--card-lav); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex: none; }
+
+/* Status chip */
+.schip { border-radius: var(--r-pill); padding: 3px 10px; font-weight: 700; font-size: 11px; }
+.schip.green { background: rgba(34,176,125,.15); color: var(--green); }
+.schip.amber { background: rgba(240,169,44,.18); color: #b9791a; }
+.schip.red { background: rgba(232,64,64,.14); color: var(--red); }
+.schip.gray { background: rgba(0,0,0,.06); color: #666; }
+.schip.lav { background: var(--card-lav); color: var(--primary); }
+
+/* Segment tab */
+.seg { display: flex; gap: 6px; background: var(--card-lav); padding: 4px; border-radius: var(--r-pill); }
+.seg button { flex: 1; border: none; background: none; padding: 8px; border-radius: var(--r-pill); font-weight: 700; font-size: 13px; color: var(--text); opacity: .6; cursor: pointer; }
+.seg button.on { background: #fff; opacity: 1; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+
+/* Qidiruv */
+.search { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: var(--r-pill); padding: 10px 16px; box-shadow: var(--shadow-inset); }
+.search input { border: none; outline: none; background: none; flex: 1; font-size: 14px; font-family: inherit; color: var(--text); }
+
+/* Detal ma'lumot qatori */
+.info { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,.05); font-size: 14px; }
+.info:last-child { border-bottom: none; }
+.info .k { opacity: .55; }
+.info .v { font-weight: 700; }
+.pad { padding: 16px 18px; }
+
+/* Tugmalar */
+.btn { border: none; border-radius: var(--r-pill); padding: 13px; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit; width: 100%; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-green { background: var(--green); color: #fff; }
+.btn-red { background: var(--red); color: #fff; }
+.btn-lav { background: var(--card-lav); color: var(--primary); }
+.btn-row { display: flex; gap: 10px; }
+.field { width: 100%; border: none; border-radius: var(--r-md); padding: 13px 14px; font-size: 14px; font-family: inherit; background: #fff; box-shadow: var(--shadow-inset); color: var(--text); box-sizing: border-box; }
+textarea.field { min-height: 120px; resize: vertical; }
+
+/* Pagination */
+.pager { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 8px 0; }
+.pager button { border: none; background: #fff; border-radius: var(--r-pill); padding: 8px 16px; font-weight: 700; box-shadow: var(--shadow-soft); cursor: pointer; }
+.pager button:disabled { opacity: .4; }
+
+/* Sarlavha + orqaga */
+.topbar { display: flex; align-items: center; gap: 10px; }
+.back-btn { border: none; background: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-soft); cursor: pointer; flex: none; }
+
+.empty { text-align: center; opacity: .5; padding: 30px 0; }
+.mini-num { font-family: "Archivo Black", Inter, sans-serif; font-size: 20px; }

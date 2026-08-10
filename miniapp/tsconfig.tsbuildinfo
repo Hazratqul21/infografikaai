@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/bottomnav.tsx","./src/lib/api.ts","./src/lib/telegram.ts","./src/lib/util.ts","./src/screens/dashboard.tsx","./src/screens/payments.tsx","./src/screens/report.tsx","./src/screens/settings.tsx","./src/screens/tasks.tsx","./src/screens/userdetail.tsx","./src/screens/users.tsx"],"version":"5.9.3"}

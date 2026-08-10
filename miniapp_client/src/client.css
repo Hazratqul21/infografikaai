@@ -1,0 +1,351 @@
+/* INNASLOT Studio — theme.css ustiga QO'SHIMCHA qatlam.
+   theme.css o'zgartirilmaydi (admin panel bilan bir xil poydevor),
+   bu yerda faqat mijoz ilovasining "jilvasi": gradient, nur, animatsiya. */
+
+:root {
+  --grad-primary: linear-gradient(135deg, #6b4ff0 0%, #5a3fe0 45%, #4529c9 100%);
+  --grad-lime: linear-gradient(135deg, #dbf85a 0%, #cfef3c 100%);
+  --glow-primary: 0 12px 28px rgba(90, 63, 224, .32);
+  --glow-soft: 0 6px 18px rgba(90, 63, 224, .14);
+}
+
+/* Sahifa foniga juda yumshoq iliqlik — yassi krem "o'lik" ko'rinmasin */
+.app-root {
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(90, 63, 224, .10) 0%, transparent 60%),
+    radial-gradient(80% 40% at 100% 100%, rgba(207, 239, 60, .16) 0%, transparent 70%),
+    var(--bg);
+}
+
+/* ─────────── Kirish animatsiyasi ─────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.anim { animation: rise .5s cubic-bezier(.22, 1, .36, 1) both; }
+.d1 { animation-delay: .05s } .d2 { animation-delay: .1s }
+.d3 { animation-delay: .15s } .d4 { animation-delay: .2s }
+.d5 { animation-delay: .25s }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim, .shine::after, .pulse, .float { animation: none !important; }
+}
+
+/* ─────────── Sarlavha ─────────── */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--grad-lime);
+  border-radius: var(--r-pill);
+  padding: 5px 12px; font-size: 11px; font-weight: 700;
+  box-shadow: 0 4px 12px rgba(207, 239, 60, .45);
+  margin-bottom: 10px;
+}
+.greeting-title { letter-spacing: -.02em; }
+
+/* ─────────── Hamyon kartasi ─────────── */
+.wallet {
+  position: relative; overflow: hidden;
+  background: var(--grad-primary);
+  color: #fff;
+  border-radius: 28px;
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 16px;
+  box-shadow: var(--glow-primary);
+}
+/* Dekorativ yorug'lik dog'lari */
+.wallet::before, .wallet::after {
+  content: ""; position: absolute; border-radius: 50%; pointer-events: none;
+}
+/* Yumshoq nur — chetdan kirib kelgandek (dog' bo'lib qolmasin) */
+.wallet::before {
+  width: 260px; height: 260px; right: -120px; top: -140px;
+  background: radial-gradient(circle at 50% 50%,
+              rgba(255,255,255,.30) 0%, rgba(255,255,255,.10) 40%, transparent 68%);
+}
+.wallet::after {
+  width: 220px; height: 220px; left: -110px; bottom: -130px;
+  background: radial-gradient(circle at 50% 50%,
+              rgba(207,239,60,.34) 0%, rgba(207,239,60,.10) 45%, transparent 70%);
+}
+/* Yuqori qirrada nozik yaltiroq chiziq — "shisha" hissi */
+.wallet {
+  border-top: 1px solid rgba(255,255,255,.22);
+}
+.wallet > * { position: relative; z-index: 1; }
+
+.wallet-num {
+  font-family: "Archivo Black", Inter, sans-serif;
+  font-size: 38px; line-height: 1; letter-spacing: -.02em;
+  display: flex; align-items: baseline; gap: 8px;
+  text-shadow: 0 2px 14px rgba(0,0,0,.18);
+}
+.wallet-unit { font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; opacity: .8; }
+.wallet-label { font-size: 13px; font-weight: 500; opacity: .8; margin-top: 6px; }
+.wallet-split { display: flex; gap: 10px; }
+.wallet-cell {
+  flex: 1;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(6px);
+  border-radius: 16px; padding: 11px 13px;
+}
+.wallet-cell .n { font-family: "Archivo Black", Inter, sans-serif; font-size: 19px; }
+.wallet-cell .l { font-size: 11px; opacity: .85; margin-top: 3px; }
+
+/* ─────────── Tugmalar ─────────── */
+.btn {
+  transition: transform .12s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.btn:active:not(:disabled) { transform: scale(.975); }
+.btn-primary {
+  background: var(--grad-primary);
+  box-shadow: var(--glow-primary);
+}
+.btn-lime {
+  background: var(--grad-lime);
+  box-shadow: 0 8px 20px rgba(207, 239, 60, .40);
+}
+.btn-lav {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: var(--shadow-soft), var(--shadow-inset);
+}
+
+/* Yorug'lik yugurishi (asosiy chaqiruv tugmasida) */
+.shine { position: relative; overflow: hidden; }
+.shine::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.42) 50%, transparent 75%);
+  transform: translateX(-100%);
+  animation: shine 3.2s ease-in-out infinite;
+}
+@keyframes shine { 0% { transform: translateX(-100%) } 55%, 100% { transform: translateX(100%) } }
+
+.chip { transition: transform .12s ease, box-shadow .2s ease; }
+.chip:active { transform: scale(.96); }
+
+/* ─────────── Rasm yuklash maydoni ─────────── */
+.dropzone {
+  position: relative;
+  border: 2px dashed rgba(90,63,224,.32);
+  background:
+    radial-gradient(90% 70% at 50% 0%, rgba(90,63,224,.07), transparent 70%),
+    var(--card-white);
+  border-radius: 26px;
+  padding: 30px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-align: center; cursor: pointer;
+  box-shadow: var(--shadow-inset);
+  transition: border-color .2s ease, transform .12s ease;
+}
+.dropzone:active { transform: scale(.99); border-color: var(--primary); }
+.dropzone .ic {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--card-lav);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--glow-soft);
+}
+.dropzone .t { font-weight: 700; font-size: 15px; }
+.dropzone .s { font-size: 12px; opacity: .55; line-height: 1.5; }
+.dropzone input { display: none; }
+
+.float { animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+
+/* ─────────── Tanlangan rasmlar ─────────── */
+.thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.thumb {
+  position: relative; aspect-ratio: 1;
+  border-radius: 18px; overflow: hidden;
+  background: var(--card-lav); box-shadow: var(--shadow-soft);
+  animation: rise .4s cubic-bezier(.22,1,.36,1) both;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb-x {
+  position: absolute; top: 6px; right: 6px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(0,0,0,.6); color: #fff; border: none;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+/* ─────────── Natija ─────────── */
+.result-wrap { position: relative; padding: 6px; border-radius: 30px;
+  background: linear-gradient(135deg, rgba(90,63,224,.35), rgba(207,239,60,.35));
+  box-shadow: var(--glow-primary); }
+.result-img {
+  width: 100%; border-radius: 24px; display: block;
+  background: var(--card-lav);
+}
+
+/* Progress — jonli chiziq */
+.progress {
+  height: 8px; border-radius: 100px; overflow: hidden;
+  background: rgba(90,63,224,.14);
+}
+.progress-bar {
+  height: 100%; border-radius: 100px;
+  background: var(--grad-primary);
+  background-size: 200% 100%;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+  animation: flow 2s linear infinite;
+}
+@keyframes flow { to { background-position: -200% 0 } }
+
+.pulse { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
+
+/* ─────────── Uslub tanlash ─────────── */
+.style-row { display: flex; gap: 12px; overflow-x: auto; padding: 4px 0 6px; }
+.style-card {
+  flex: none; width: 80px; text-align: center; cursor: pointer;
+  background: none; border: none; padding: 0; color: var(--text);
+  transition: transform .15s ease;
+}
+.style-card:active { transform: scale(.95); }
+.style-card .box {
+  width: 80px; height: 80px; border-radius: 20px;
+  background: var(--card-lav); overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 2.5px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.style-card.on .box { border-color: var(--primary); box-shadow: var(--glow-soft); }
+.style-card img { width: 100%; height: 100%; object-fit: cover; }
+.style-card .cap { font-size: 11px; margin-top: 6px; opacity: .6; font-weight: 600; }
+.style-card.on .cap { opacity: 1; color: var(--primary); }
+
+/* ─────────── Galereya ─────────── */
+.gal { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gal-item {
+  border-radius: 20px; overflow: hidden; position: relative;
+  background: var(--card-lav); box-shadow: var(--shadow-soft);
+  aspect-ratio: 3/4; border: none; padding: 0; cursor: pointer;
+  animation: rise .45s cubic-bezier(.22,1,.36,1) both;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.gal-item:active { transform: scale(.97); }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gal-item::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 45%;
+  background: linear-gradient(transparent, rgba(0,0,0,.5));
+  pointer-events: none;
+}
+.gal-tag {
+  position: absolute; left: 9px; bottom: 9px; right: 9px; z-index: 1;
+  color: #fff; font-size: 11px; font-weight: 700; text-align: left;
+  text-shadow: 0 1px 6px rgba(0,0,0,.5);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ─────────── Eslatma paneli ─────────── */
+.note {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--card-lav); border-radius: 18px;
+  padding: 13px 15px; font-size: 13px; line-height: 1.5;
+  animation: rise .35s ease both;
+}
+.note.warn { background: rgba(240,169,44,.16); }
+.note.err  { background: rgba(232,64,64,.12); }
+.note b { font-weight: 700; }
+
+/* ─────────── Modal ─────────── */
+.sheet {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(12, 8, 30, .72);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  animation: fade .25s ease both;
+}
+@keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+.sheet-inner {
+  max-width: 440px; width: 100%;
+  display: flex; flex-direction: column; gap: 12px;
+  animation: rise .35s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ─────────── Pastki navigatsiya ─────────── */
+.bottom-nav {
+  background: var(--grad-primary);
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 -8px 26px rgba(90,63,224,.28);
+}
+.nav-item { transition: transform .15s ease, opacity .2s ease; }
+.nav-item:active { transform: scale(.92); }
+.nav-dot { box-shadow: 0 0 8px rgba(207,239,60,.9); }
+
+/* ─────────── Skeleton (yuklanish holati) ─────────── */
+.sk {
+  background: linear-gradient(100deg,
+    rgba(90,63,224,.07) 30%, rgba(90,63,224,.14) 50%, rgba(90,63,224,.07) 70%);
+  background-size: 220% 100%;
+  animation: sweep 1.3s ease-in-out infinite;
+}
+@keyframes sweep { from { background-position: 200% 0 } to { background-position: -20% 0 } }
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg) } }
+
+/* ─────────── Toast ─────────── */
+.toast-wrap {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: 108px; z-index: 200;
+  width: 100%; max-width: 440px; padding: 0 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  display: flex; align-items: flex-start; gap: 10px;
+  background: #fff; color: var(--text);
+  border-radius: 16px; padding: 12px 14px;
+  font-size: 13px; font-weight: 500; line-height: 1.45;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  animation: toastIn .32s cubic-bezier(.22,1,.36,1) both;
+}
+.toast.leaving { animation: toastOut .3s ease both; }
+@keyframes toastIn  { from { opacity: 0; transform: translateY(16px) scale(.96) } to { opacity: 1; transform: none } }
+@keyframes toastOut { to { opacity: 0; transform: translateY(10px) scale(.97) } }
+.toast-success { border-left: 4px solid var(--green); }
+.toast-success svg { color: var(--green); }
+.toast-error   { border-left: 4px solid var(--red); }
+.toast-error svg { color: var(--red); }
+.toast-info    { border-left: 4px solid var(--primary); }
+.toast-info svg { color: var(--primary); }
+.toast-x {
+  border: none; background: none; padding: 0; cursor: pointer;
+  opacity: .35; color: var(--text); flex: none;
+}
+
+/* ─────────── Bo'sh holat ─────────── */
+.empty-box {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 40px 24px; text-align: center;
+}
+.empty-ic {
+  width: 74px; height: 74px; border-radius: 50%;
+  background: var(--card-lav);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--glow-soft);
+}
+.empty-t { font-weight: 700; font-size: 15px; }
+.empty-s { font-size: 13px; opacity: .55; line-height: 1.5; max-width: 260px; }
+
+/* Tez tanlov tugmachalari (hamyon) */
+.quick { display: flex; gap: 8px; }
+.quick button {
+  flex: 1; border: none; cursor: pointer;
+  background: var(--card-lav); color: var(--primary);
+  border-radius: var(--r-pill); padding: 9px 0;
+  font-weight: 700; font-size: 13px; font-family: inherit;
+  transition: transform .12s ease, background .2s ease;
+}
+.quick button.on { background: var(--grad-primary); color: #fff; box-shadow: var(--glow-soft); }
+.quick button:active { transform: scale(.94); }
+
+/* Ro'yxat elementiga jonlilik */
+.row { transition: transform .12s ease; }
+.row:active { transform: scale(.99); }
+.field { transition: box-shadow .2s ease; }
+.field:focus { box-shadow: var(--shadow-inset), 0 0 0 2.5px rgba(90,63,224,.28); outline: none; }

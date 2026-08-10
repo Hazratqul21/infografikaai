@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/bottomnav.tsx","./src/components/skeleton.tsx","./src/components/toast.tsx","./src/lib/api.ts","./src/lib/image.ts","./src/lib/telegram.ts","./src/screens/create.tsx","./src/screens/gallery.tsx","./src/screens/home.tsx","./src/screens/wallet.tsx"],"version":"5.9.3"}
