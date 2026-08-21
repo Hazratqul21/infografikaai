@@ -9,3 +9,13 @@ __pycache__/
 *.db-wal
 .DS_Store
 .claude/
+
+# Databases
+*.db
+superapp.db
+
+# Local test scripts
+test_vision.py
+find_model.py
+test_frontend.py
+test_gemini.py
